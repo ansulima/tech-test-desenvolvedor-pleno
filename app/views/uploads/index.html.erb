@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-lg-8 mx-auto">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">
+          <i class="bi bi-upload"></i> Upload Email File
+        </h4>
+      </div>
+      <div class="card-body">
+        <p class="text-muted">
+          Upload a <code>.eml</code> file to process customer information. 
+          The file will be processed in the background and results will appear in the Processing Logs.
+        </p>
+
+        <%= form_with url: uploads_path, method: :post, multipart: true, class: "mt-4" do |f| %>
+          <div class="mb-3">
+            <label for="email_file" class="form-label fw-bold">Select .eml file</label>
+            <input type="file" 
+                   class="form-control" 
+                   id="email_file" 
+                   name="email_file" 
+                   accept=".eml"
+                   required>
+            <div class="form-text">Only .eml (email) files are accepted</div>
+          </div>
+
+          <div class="d-grid gap-2">
+            <%= f.submit "Upload and Process", class: "btn btn-primary btn-lg" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card mt-4 shadow-sm">
+      <div class="card-header">
+        <h5 class="mb-0">
+          <i class="bi bi-info-circle"></i> How it works
+        </h5>
+      </div>
+      <div class="card-body">
+        <ol class="mb-0">
+          <li>Upload a <code>.eml</code> file using the form above</li>
+          <li>The system will identify the sender and select the appropriate parser</li>
+          <li>Customer information (name, email, phone, product code) will be extracted</li>
+          <li>A new customer record will be created if extraction is successful</li>
+          <li>All processing attempts are logged (success or failure)</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card mt-4 shadow-sm">
+      <div class="card-header">
+        <h5 class="mb-0">
+          <i class="bi bi-check-circle"></i> Supported Senders
+        </h5>
+      </div>
+      <div class="card-body">
+        <ul class="mb-0">
+          <li><strong>Fornecedor A:</strong> <code>loja@fornecedorA.com</code></li>
+          <li><strong>Parceiro B:</strong> <code>contato@parceiroB.com</code></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

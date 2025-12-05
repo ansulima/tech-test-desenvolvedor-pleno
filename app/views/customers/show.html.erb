@@ -1,0 +1,92 @@
+<div class="mb-4">
+  <%= link_to "← Back to Customers", customers_path, class: "btn btn-outline-secondary" %>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-header bg-primary text-white">
+    <h4 class="mb-0">
+      <i class="bi bi-person"></i> Customer Details
+    </h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <dl class="row">
+          <dt class="col-sm-4">ID:</dt>
+          <dd class="col-sm-8"><%= @customer.id %></dd>
+
+          <dt class="col-sm-4">Name:</dt>
+          <dd class="col-sm-8"><strong><%= @customer.name %></strong></dd>
+
+          <dt class="col-sm-4">Email:</dt>
+          <dd class="col-sm-8">
+            <% if @customer.email.present? %>
+              <a href="mailto:<%= @customer.email %>"><%= @customer.email %></a>
+            <% else %>
+              <span class="text-muted">Not provided</span>
+            <% end %>
+          </dd>
+
+          <dt class="col-sm-4">Phone:</dt>
+          <dd class="col-sm-8">
+            <%= @customer.phone.presence || content_tag(:span, "Not provided", class: "text-muted") %>
+          </dd>
+        </dl>
+      </div>
+
+      <div class="col-md-6">
+        <dl class="row">
+          <dt class="col-sm-4">Product Code:</dt>
+          <dd class="col-sm-8">
+            <% if @customer.product_code.present? %>
+              <span class="badge bg-info fs-6"><%= @customer.product_code %></span>
+            <% else %>
+              <span class="text-muted">Not provided</span>
+            <% end %>
+          </dd>
+
+          <dt class="col-sm-4">Subject:</dt>
+          <dd class="col-sm-8">
+            <%= @customer.subject.presence || content_tag(:span, "Not provided", class: "text-muted") %>
+          </dd>
+
+          <dt class="col-sm-4">Created At:</dt>
+          <dd class="col-sm-8"><%= @customer.created_at.strftime("%Y-%m-%d %H:%M:%S") %></dd>
+
+          <dt class="col-sm-4">Updated At:</dt>
+          <dd class="col-sm-8"><%= @customer.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @customer.processing_logs.any? %>
+  <div class="card mt-4 shadow-sm">
+    <div class="card-header">
+      <h5 class="mb-0">
+        <i class="bi bi-file-text"></i> Related Processing Logs
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="list-group">
+        <% @customer.processing_logs.order(created_at: :desc).each do |log| %>
+          <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1"><%= log.filename %></h6>
+              <small><%= log.created_at.strftime("%Y-%m-%d %H:%M") %></small>
+            </div>
+            <p class="mb-1">
+              <span class="badge bg-<%= log.success? ? 'success' : 'danger' %>">
+                <%= log.status.upcase %>
+              </span>
+              <% if log.sender %>
+                <span class="text-muted ms-2">From: <%= log.sender %></span>
+              <% end %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,81 @@
+# frozen_string_literal: true
+
+# EXEMPLO: Como criar um novo parser
+# Este arquivo demonstra como adicionar suporte para um novo remetente
+
+module EmailParsers
+  # Parser de exemplo para um novo fornecedor
+  # Descomente e adapte conforme necessário
+  class ExemploNovoParser < BaseParser
+    def extract_customer_info
+      body_text = body
+
+      {
+        name: extract_name(body_text),
+        email: extract_email_field(body_text),
+        phone: extract_phone_field(body_text),
+        product_code: extract_product_code_field(body_text),
+        subject: subject
+      }
+    end
+
+    private
+
+    # Adapte os métodos abaixo conforme o formato do email
+    
+    def extract_name(text)
+      # Exemplo: procurar por "Nome:" ou "Cliente:"
+      name_match = text.match(/(?:Nome|Cliente):\s*(.+?)(?:\n|$)/i)
+      name_match[1].strip if name_match
+    end
+
+    def extract_email_field(text)
+      # Exemplo: procurar por "Email:" ou usar extração genérica
+      email_match = text.match(/E-?mail:\s*(.+?)(?:\n|$)/i)
+      if email_match
+        email_match[1].strip
+      else
+        # Fallback para extração genérica
+        extract_email(text)
+      end
+    end
+
+    def extract_phone_field(text)
+      # Exemplo: procurar por "Telefone:" ou "Tel:"
+      phone_match = text.match(/(?:Telefone|Tel):\s*(.+?)(?:\n|$)/i)
+      if phone_match
+        phone_match[1].strip
+      else
+        # Fallback para extração genérica
+        extract_phone(text)
+      end
+    end
+
+    def extract_product_code_field(text)
+      # Exemplo: procurar por "Produto:" ou "Código:"
+      product_match = text.match(/(?:Produto|Código):\s*(.+?)(?:\n|$)/i)
+      if product_match
+        product_match[1].strip
+      else
+        # Fallback para extração genérica
+        extract_product_code(text)
+      end
+    end
+  end
+end
+
+# PASSOS PARA ATIVAR ESTE PARSER:
+#
+# 1. Renomeie esta classe para o nome apropriado (ex: FornecedorCParser)
+# 2. Adapte os métodos de extração conforme o formato do email
+# 3. Adicione o mapeamento em EmailProcessorService:
+#
+#    PARSER_MAPPING = {
+#      'loja@fornecedorA.com' => EmailParsers::FornecedorAParser,
+#      'contato@parceiroB.com' => EmailParsers::ParceiroBParser,
+#      'novo@fornecedor.com' => EmailParsers::ExemploNovoParser  # Adicione aqui
+#    }.freeze
+#
+# 4. Crie os testes em spec/services/email_parsers/exemplo_novo_parser_spec.rb
+# 5. Execute os testes: docker-compose run --rm web bundle exec rspec
+# 6. Teste com um arquivo .eml real

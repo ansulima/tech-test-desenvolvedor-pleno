@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Email Processor</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+      <div class="container">
+        <%= link_to "Email Processor", root_path, class: "navbar-brand" %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <%= link_to "Upload Email", uploads_path, class: "nav-link #{'active' if controller_name == 'uploads'}" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Customers", customers_path, class: "nav-link #{'active' if controller_name == 'customers'}" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Processing Logs", processing_logs_path, class: "nav-link #{'active' if controller_name == 'processing_logs'}" %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <% if notice %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <%= notice %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      <% end %>
+
+      <% if alert %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <%= alert %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+
+    <footer class="mt-5 py-4 bg-light">
+      <div class="container text-center text-muted">
+        <p class="mb-0">Email Processor System - Built with Ruby on Rails</p>
+      </div>
+    </footer>
+  </body>
+</html>

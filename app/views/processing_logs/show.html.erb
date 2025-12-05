@@ -1,0 +1,80 @@
+<div class="mb-4">
+  <%= link_to "← Back to Logs", processing_logs_path, class: "btn btn-outline-secondary" %>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-header bg-<%= @log.success? ? 'success' : 'danger' %> text-white">
+    <h4 class="mb-0">
+      <i class="bi bi-file-earmark-text"></i> Processing Log Details
+    </h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <dl class="row">
+          <dt class="col-sm-4">Status:</dt>
+          <dd class="col-sm-8">
+            <span class="badge bg-<%= @log.success? ? 'success' : 'danger' %> fs-6">
+              <%= @log.status.upcase %>
+            </span>
+          </dd>
+
+          <dt class="col-sm-4">Filename:</dt>
+          <dd class="col-sm-8"><strong><%= @log.filename %></strong></dd>
+
+          <dt class="col-sm-4">Sender:</dt>
+          <dd class="col-sm-8"><%= @log.sender || '-' %></dd>
+
+          <dt class="col-sm-4">Processed At:</dt>
+          <dd class="col-sm-8">
+            <%= @log.processed_at&.strftime("%Y-%m-%d %H:%M:%S") || '-' %>
+          </dd>
+        </dl>
+      </div>
+
+      <div class="col-md-6">
+        <dl class="row">
+          <dt class="col-sm-4">Customer:</dt>
+          <dd class="col-sm-8">
+            <% if @log.customer %>
+              <%= link_to @log.customer.name, customer_path(@log.customer), class: "btn btn-sm btn-outline-primary" %>
+            <% else %>
+              <span class="text-muted">No customer created</span>
+            <% end %>
+          </dd>
+
+          <dt class="col-sm-4">Created At:</dt>
+          <dd class="col-sm-8"><%= @log.created_at.strftime("%Y-%m-%d %H:%M:%S") %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @log.extracted_data.present? %>
+  <div class="card mt-4 shadow-sm">
+    <div class="card-header">
+      <h5 class="mb-0">
+        <i class="bi bi-code-square"></i> Extracted Data
+      </h5>
+    </div>
+    <div class="card-body">
+      <pre class="bg-light p-3 rounded"><%= JSON.pretty_generate(JSON.parse(@log.extracted_data)) %></pre>
+    </div>
+  </div>
+<% end %>
+
+<% if @log.error_message.present? %>
+  <div class="card mt-4 shadow-sm border-danger">
+    <div class="card-header bg-danger text-white">
+      <h5 class="mb-0">
+        <i class="bi bi-exclamation-triangle"></i> Error Message
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-danger mb-0">
+        <%= @log.error_message %>
+      </div>
+    </div>
+  </div>
+<% end %>
