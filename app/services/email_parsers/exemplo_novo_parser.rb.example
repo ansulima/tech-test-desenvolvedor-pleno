@@ -63,19 +63,3 @@ module EmailParsers
     end
   end
 end
-
-# PASSOS PARA ATIVAR ESTE PARSER:
-#
-# 1. Renomeie esta classe para o nome apropriado (ex: FornecedorCParser)
-# 2. Adapte os métodos de extração conforme o formato do email
-# 3. Adicione o mapeamento em EmailProcessorService:
-#
-#    PARSER_MAPPING = {
-#      'loja@fornecedorA.com' => EmailParsers::FornecedorAParser,
-#      'contato@parceiroB.com' => EmailParsers::ParceiroBParser,
-#      'novo@fornecedor.com' => EmailParsers::ExemploNovoParser  # Adicione aqui
-#    }.freeze
-#
-# 4. Crie os testes em spec/services/email_parsers/exemplo_novo_parser_spec.rb
-# 5. Execute os testes: docker-compose run --rm web bundle exec rspec
-# 6. Teste com um arquivo .eml real

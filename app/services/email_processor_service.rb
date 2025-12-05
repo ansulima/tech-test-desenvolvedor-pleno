@@ -1,7 +1,4 @@
-# frozen_string_literal: true
 
-# Main service responsible for processing email files
-# Decides which parser to use based on the sender
 class EmailProcessorService
   PARSER_MAPPING = {
     'loja@fornecedorA.com' => EmailParsers::FornecedorAParser,

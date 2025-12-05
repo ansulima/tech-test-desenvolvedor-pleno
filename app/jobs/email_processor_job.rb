@@ -1,6 +1,4 @@
-# frozen_string_literal: true
 
-# Background job for processing email files
 class EmailProcessorJob
   include Sidekiq::Job
 
@@ -21,6 +19,6 @@ class EmailProcessorJob
     Rails.logger.error("EmailFile not found: #{e.message}")
   rescue StandardError => e
     Rails.logger.error("Error processing email: #{e.message}")
-    raise # Re-raise to trigger Sidekiq retry
+    raise 
   end
 end
