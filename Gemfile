@@ -13,7 +13,7 @@ gem "image_processing", "~> 1.2"
 
 # Background jobs
 gem "connection_pool", "~> 2.4"
-gem "sidekiq", "~> 6.5"
+gem "sidekiq", "~> 7.2"
 
 # Email parsing
 gem "mail", "~> 2.8"
