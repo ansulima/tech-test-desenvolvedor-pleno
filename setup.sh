@@ -1,16 +1,12 @@
-#!/bin/bash
-
 echo "🚀 Email Processor - Setup Script"
 echo "=================================="
 echo ""
 
-# Check if Docker is installed
 if ! command -v docker &> /dev/null; then
     echo "❌ Docker is not installed. Please install Docker first."
     exit 1
 fi
 
-# Check if Docker Compose is installed (v2 uses 'docker compose')
 if ! docker compose version &> /dev/null; then
     echo "❌ Docker Compose is not available. Please install Docker Compose first."
     exit 1
@@ -19,7 +15,6 @@ fi
 echo "✅ Docker and Docker Compose are installed"
 echo ""
 
-# Build containers
 echo "📦 Building Docker containers..."
 docker compose build
 
@@ -31,7 +26,6 @@ fi
 echo "✅ Containers built successfully"
 echo ""
 
-# Start services
 echo "🚀 Starting services..."
 docker compose up -d
 
@@ -43,11 +37,9 @@ fi
 echo "✅ Services started successfully"
 echo ""
 
-# Wait for database to be ready
 echo "⏳ Waiting for database to be ready..."
 sleep 5
 
-# Run database setup
 echo "🗄️  Setting up database..."
 docker compose run --rm web bundle exec rails db:create db:migrate
 
@@ -59,7 +51,6 @@ fi
 echo "✅ Database setup completed"
 echo ""
 
-# Seed database with example data
 echo "🌱 Seeding database with example emails..."
 docker compose run --rm web bundle exec rails db:seed
 

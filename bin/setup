@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 require "fileutils"
 
 APP_ROOT = File.expand_path("..", __dir__)
@@ -20,7 +19,7 @@ FileUtils.chdir APP_ROOT do
 
   unless ARGV.include?("--skip-server")
     puts "\n== Starting development server =="
-    STDOUT.flush # flush the output before exec(2) so that it displays
+    STDOUT.flush
     exec "bin/dev"
   end
 end

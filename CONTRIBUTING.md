@@ -27,18 +27,12 @@ module EmailParsers
     private
 
     def extract_name(text)
-      # Implemente a lógica específica para extrair o nome
-      # Exemplo: text.match(/Cliente:\s*(.+?)(?:\n|$)/i)&.[](1)&.strip
     end
 
     def extract_email_field(text)
-      # Implemente a lógica específica para extrair o email
-      # Ou use o método auxiliar: extract_email(text)
     end
 
     def extract_phone_field(text)
-      # Implemente a lógica específica para extrair o telefone
-      # Ou use o método auxiliar: extract_phone(text)
     end
   end
 end

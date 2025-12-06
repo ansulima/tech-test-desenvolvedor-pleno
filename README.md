@@ -106,7 +106,6 @@ Para adicionar suporte a um novo remetente:
 module EmailParsers
   class NovoFornecedorParser < BaseParser
     def extract_customer_info
-      # Implemente a lógica de extração específica
       {
         name: extract_name(body),
         email: extract_email(body),

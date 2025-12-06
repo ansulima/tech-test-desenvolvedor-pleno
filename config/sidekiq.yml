@@ -6,9 +6,8 @@
   - default
   - low
 
-# Schedule periodic jobs
 :schedule:
   log_cleanup:
-    cron: '0 2 * * *'  # Run daily at 2 AM
+    cron: '0 2 * * *'
     class: LogCleanupJob
-    args: [30]  # Keep logs for 30 days
+    args: [30]
